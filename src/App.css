@@ -1,0 +1,17 @@
+body {
+  background-color: #f5f6fa;
+  font-family: "Poppins", sans-serif;
+}
+
+.btn-add {
+  background-color: #7b2ff7;
+  color: #fff;
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(123, 47, 247, 0.3);
+}
+
+.btn-add:hover {
+  background-color: #6a1de0;
+}
