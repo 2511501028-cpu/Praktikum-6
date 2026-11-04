@@ -1,17 +1,379 @@
+/* =================================
+   GLOBAL STYLE
+================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  width: 100%;
+}
+
 body {
-  background-color: #f5f6fa;
-  font-family: "Poppins", sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f0ff;
+  color: #29243a;
 }
 
-.btn-add {
-  background-color: #7b2ff7;
-  color: #fff;
-  border-radius: 10px;
-  padding: 8px 16px;
-  font-weight: 500;
-  box-shadow: 0 4px 10px rgba(123, 47, 247, 0.3);
+/* =================================
+   MAIN BACKGROUND
+================================= */
+
+.app-background {
+  min-height: 100vh;
+  width: 100%;
+  padding: 65px 20px;
+  background: linear-gradient(135deg, #f4f0ff 0%, #eee8ff 50%, #f8f5ff 100%);
 }
 
-.btn-add:hover {
-  background-color: #6a1de0;
+/* =================================
+   TODO CONTAINER
+================================= */
+
+.todo-container.container {
+  max-width: 680px !important;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* =================================
+   HEADER
+================================= */
+
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.todo-header h1 {
+  margin: 0;
+  color: #28223d;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+.add-task-button {
+  background: linear-gradient(135deg, #8255e8, #6939d4) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 12px 19px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: white !important;
+  box-shadow: 0 5px 14px rgba(105, 57, 212, 0.22) !important;
+  transition: all 0.2s ease;
+}
+
+.add-task-button:hover {
+  background: #5e2bc5 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(105, 57, 212, 0.3) !important;
+}
+
+/* =================================
+   TASK LIST
+================================= */
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* =================================
+   TASK CARD
+================================= */
+
+.task-row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) 0.8fr 0.9fr 20px 55px;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 85px;
+  padding: 18px 22px;
+  background: #ffffff;
+  border: 1px solid rgba(224, 215, 245, 0.8);
+  border-radius: 17px;
+  box-shadow: 0 5px 18px rgba(73, 52, 120, 0.07);
+  transition: all 0.25s ease;
+}
+
+.task-row:hover {
+  transform: translateY(-3px);
+  border-color: #cbb9f5;
+  box-shadow: 0 10px 25px rgba(73, 52, 120, 0.12);
+}
+
+/* =================================
+   TASK INFORMATION
+================================= */
+
+.task-name,
+.task-priority,
+.task-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.column-label {
+  display: block;
+  color: #a39bad;
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.task-title {
+  display: block;
+  color: #373044;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* =================================
+   PRIORITY
+================================= */
+
+.priority-high,
+.priority-medium,
+.priority-low {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.priority-high {
+  color: #e05268;
+}
+
+.priority-medium {
+  color: #d59d28;
+}
+
+.priority-low {
+  color: #2fa77b;
+}
+
+/* =================================
+   STATUS BADGE
+================================= */
+
+.status-badge {
+  display: inline-block;
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 7px;
+  font-size: 9px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-todo {
+  color: #777185;
+  background: #f0eef4;
+}
+
+.status-progress {
+  color: #7150c5;
+  background: #eee8ff;
+}
+
+.status-done {
+  color: #27966b;
+  background: #e2f7ec;
+}
+
+/* =================================
+   STATUS INDICATOR
+================================= */
+
+.status-indicator {
+  display: block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid #ded9e9;
+}
+
+.indicator-todo {
+  border-color: #ded9e9;
+}
+
+.indicator-progress {
+  border-color: #9875e5;
+  border-right-color: #ded9e9;
+}
+
+.indicator-done {
+  border-color: #9875e5;
+  background: #9875e5;
+  box-shadow: inset 0 0 0 3px white;
+}
+
+/* =================================
+   ACTION BUTTONS
+================================= */
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.task-actions .btn {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  font-size: 15px;
+  box-shadow: none !important;
+  transition: all 0.2s ease;
+}
+
+.task-actions .btn:hover {
+  transform: scale(1.18);
+}
+
+.action-edit {
+  color: #7950d8 !important;
+}
+
+.action-delete {
+  color: #e47786 !important;
+}
+
+/* =================================
+   EMPTY STATE
+================================= */
+
+.empty-state {
+  padding: 42px 20px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e9e2f7;
+  border-radius: 17px;
+  color: #9b94a8;
+  font-size: 13px;
+  box-shadow: 0 5px 18px rgba(73, 52, 120, 0.06);
+}
+
+/* =================================
+   MODAL
+================================= */
+
+.modal-content {
+  border: none !important;
+  border-radius: 17px !important;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(48, 33, 85, 0.15);
+}
+
+.modal-header {
+  border-bottom: 1px solid #eee9f8 !important;
+  padding: 21px 24px !important;
+  background: #faf8ff;
+}
+
+.modal-title {
+  color: #332849;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}
+
+.modal-body {
+  padding: 23px 24px !important;
+}
+
+.modal-footer {
+  border-top: 1px solid #eee9f8 !important;
+  padding: 16px 24px !important;
+}
+
+.modal-body .form-label {
+  color: #51465f;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.modal-body .form-control,
+.modal-body .form-select {
+  border: 1px solid #e5def2;
+  border-radius: 9px;
+  padding: 11px 12px;
+  font-size: 12px;
+  box-shadow: none;
+}
+
+.modal-body .form-control:focus,
+.modal-body .form-select:focus {
+  border-color: #9875e5;
+  box-shadow: 0 0 0 3px rgba(152, 117, 229, 0.13);
+}
+
+.modal-footer .btn-primary {
+  background: linear-gradient(135deg, #8255e8, #6939d4) !important;
+  border: none !important;
+  border-radius: 9px !important;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 10px 17px;
+}
+
+.modal-footer .btn-primary:hover {
+  background: #5e2bc5 !important;
+}
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 520px) {
+  .app-background {
+    padding: 35px 12px;
+  }
+
+  .todo-header {
+    margin-bottom: 25px;
+  }
+
+  .todo-header h1 {
+    font-size: 24px;
+  }
+
+  .task-row {
+    grid-template-columns: minmax(0, 1.5fr) 0.7fr 0.85fr 15px 45px;
+    gap: 6px;
+    padding: 14px 10px;
+    min-height: 75px;
+  }
+
+  .task-title {
+    font-size: 10px;
+  }
+
+  .status-badge {
+    font-size: 8px;
+    padding: 4px 5px;
+  }
+
+  .task-actions {
+    gap: 7px;
+  }
 }

@@ -1,67 +1,96 @@
 import React from "react";
-import { Button, Card, Badge } from "react-bootstrap";
-import { PencilSquare, Trash } from "react-bootstrap-icons";
+import { Button } from "react-bootstrap";
 
 const TaskList = ({ tasks, deleteTask, showEditForm }) => {
-  const getPriorityBadge = (priority) => {
+  const getPriorityClass = (priority) => {
     switch (priority) {
       case "High":
-        return <Badge bg="danger">High</Badge>;
+        return "priority-high";
       case "Medium":
-        return (
-          <Badge bg="warning" text="dark">
-            Medium
-          </Badge>
-        );
+        return "priority-medium";
+      case "Low":
+        return "priority-low";
       default:
-        return <Badge bg="success">Low</Badge>;
+        return "";
     }
   };
 
-  const getStatusColor = (status) => {
+  const getStatusClass = (status) => {
     switch (status) {
-      case "To Do":
-        return "secondary";
-      case "In Progress":
-        return "info";
       case "Done":
-        return "success";
+        return "status-done";
+      case "In Progress":
+        return "status-progress";
       default:
-        return "light";
+        return "status-todo";
+    }
+  };
+
+  const getIndicatorClass = (status) => {
+    switch (status) {
+      case "Done":
+        return "indicator-done";
+      case "In Progress":
+        return "indicator-progress";
+      default:
+        return "indicator-todo";
     }
   };
 
   return (
-    <div>
-      {tasks.map((task) => (
-        <Card className="mb-3 shadow-sm border-0 rounded-3" key={task.id}>
-          <Card.Body className="d-flex justify-content-between align-items-center">
-            <div className="text-start">
-              <div className="fw-semibold">Task: {task.name}</div>
-              <div>Priority: {getPriorityBadge(task.priority)}</div>
-              <div>
-                Status:{" "}
-                <Badge bg={getStatusColor(task.status)}>{task.status}</Badge>
-              </div>
+    <div className="task-list">
+      {tasks.length === 0 ? (
+        <div className="empty-state">
+          Belum ada tugas. Klik tombol Add Task untuk memulai!
+        </div>
+      ) : (
+        tasks.map((task) => (
+          <div className="task-row" key={task.id}>
+            <div className="task-name">
+              <span className="column-label">Task</span>
+              <span className="task-title">{task.name}</span>
             </div>
-            <div>
+
+            <div className="task-priority">
+              <span className="column-label">Priority</span>
+              <span className={getPriorityClass(task.priority)}>
+                {task.priority}
+              </span>
+            </div>
+
+            <div className="task-status">
+              <span className="column-label status-label">Status</span>
+              <span className={`status-badge ${getStatusClass(task.status)}`}>
+                {task.status}
+              </span>
+            </div>
+
+            <div className="task-indicator">
+              <span
+                className={`status-indicator ${getIndicatorClass(task.status)}`}
+              ></span>
+            </div>
+
+            <div className="task-actions">
               <Button
-                variant="outline-dark"
-                className="me-2"
+                className="action-edit"
                 onClick={() => showEditForm(task)}
+                title="Edit Task"
               >
-                <PencilSquare />
+                <i className="bi bi-pencil-square"></i>
               </Button>
+
               <Button
-                variant="outline-danger"
+                className="action-delete"
                 onClick={() => deleteTask(task.id)}
+                title="Delete Task"
               >
-                <Trash />
+                <i className="bi bi-trash3"></i>
               </Button>
             </div>
-          </Card.Body>
-        </Card>
-      ))}
+          </div>
+        ))
+      )}
     </div>
   );
 };
